@@ -3,24 +3,24 @@ import { ArrowUpRight } from "lucide-react"
 const projects = [
   {
     id: 1,
-    slug: "ai-analytics-dashboard",
-    title: "AI Аналитика",
-    shortDescription: "Платформа бизнес-аналитики в реальном времени на базе машинного обучения",
-    mainImage: "/portfolio-images/saas-dashboard-1.jpg",
+    slug: "engineering-parts",
+    title: "Инженерные детали",
+    shortDescription: "Прецизионные детали для промышленного оборудования с допуском 0.05 мм",
+    mainImage: "https://cdn.poehali.dev/projects/3d8b1e70-6c79-481a-b2b0-693787006712/files/ed26f5c3-d2f7-43e4-a412-42a93906b903.jpg",
   },
   {
     id: 2,
-    slug: "smart-automation-suite",
-    title: "Умная автоматизация",
-    shortDescription: "Комплексная автоматизация рабочих процессов с AI-принятием решений",
-    mainImage: "/portfolio-images/ecommerce-interface-1.jpg",
+    slug: "prototyping",
+    title: "Прототипирование",
+    shortDescription: "Быстрое создание прототипов для стартапов и продуктовых команд",
+    mainImage: "https://cdn.poehali.dev/projects/3d8b1e70-6c79-481a-b2b0-693787006712/files/ffe81ff2-51dc-4504-a80f-a721f7f2eed3.jpg",
   },
   {
     id: 3,
-    slug: "neural-commerce-platform",
-    title: "Neural Commerce",
-    shortDescription: "E-commerce платформа нового поколения с персонализированными AI-рекомендациями",
-    mainImage: "/portfolio-images/ai-platform-1.jpg",
+    slug: "creative-models",
+    title: "Сувениры и декор",
+    shortDescription: "Уникальные фигурки, сувениры и декоративные изделия под заказ",
+    mainImage: "https://cdn.poehali.dev/projects/3d8b1e70-6c79-481a-b2b0-693787006712/files/313af075-f960-45c9-9a07-6ea781c86e37.jpg",
   },
 ]
 
@@ -28,12 +28,12 @@ export default function Projects() {
   return (
     <section id="projects" className="my-20">
       <h2 className="text-black dark:text-white mb-6 text-3xl md:text-4xl lg:text-5xl font-medium leading-tight">
-        Наши последние
-        <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">проекты</span>
+        Примеры наших
+        <span className="block text-[#7A7FEE] dark:text-[#7A7FEE]">работ</span>
       </h2>
       <p className="mb-12 max-w-2xl text-gray-700 dark:text-gray-300">
-        От AI-автоматизации до кастомных маркетплейсов — наши решения помогают бизнесу масштабироваться эффективнее.
-        Изучите платформы, инструменты и решения, которые мы создали для наших клиентов.
+        Мы работаем с самыми разными задачами — от промышленных деталей до авторских сувениров. Вот несколько
+        направлений, в которых мы уже помогли клиентам.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -63,7 +63,7 @@ export default function Projects() {
 
       <div className="flex justify-center mt-8">
         <a href="#contact" className="btn-primary">
-          Все проекты
+          Заказать печать
         </a>
       </div>
     </section>
