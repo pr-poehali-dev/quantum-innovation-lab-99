@@ -1,3 +1,4 @@
 {
+  "get-orders": "https://functions.poehali.dev/d3df4087-2262-401e-aaaf-44e61fb854f6",
   "submit-order": "https://functions.poehali.dev/d9655a37-f248-4744-b684-94d9e86f3913"
 }
