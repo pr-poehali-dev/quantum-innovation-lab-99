@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import Icon from "@/components/ui/icon"
 
 const GET_ORDERS_URL = "https://functions.poehali.dev/d3df4087-2262-401e-aaaf-44e61fb854f6"
+const ADMIN_PASSWORD = "2580"
 
 interface Order {
   id: number
@@ -18,11 +19,14 @@ function formatDate(iso: string) {
 }
 
 export default function Admin() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem("admin_auth") === "1")
+  const [passwordInput, setPasswordInput] = useState("")
+  const [passwordError, setPasswordError] = useState(false)
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     setLoading(true)
     setError(false)
     try {
@@ -35,11 +39,59 @@ export default function Admin() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   useEffect(() => {
-    fetchOrders()
-  }, [])
+    if (authed) fetchOrders()
+  }, [authed, fetchOrders])
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (passwordInput === ADMIN_PASSWORD) {
+      sessionStorage.setItem("admin_auth", "1")
+      setAuthed(true)
+      setPasswordError(false)
+    } else {
+      setPasswordError(true)
+    }
+  }
+
+  if (!authed) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-[#111111] flex items-center justify-center p-6">
+        <div className="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 w-full max-w-sm">
+          <div className="text-center mb-6">
+            <div className="w-14 h-14 bg-[#7A7FEE]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Icon name="Lock" size={24} className="text-[#7A7FEE]" />
+            </div>
+            <h1 className="text-2xl font-bold text-black dark:text-white">
+              Print<span className="text-[#7A7FEE]">3D</span>
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Введите пароль для входа</p>
+          </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="password"
+              autoFocus
+              value={passwordInput}
+              onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(false) }}
+              placeholder="Пароль"
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#111] text-black dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7A7FEE]"
+            />
+            {passwordError && (
+              <p className="text-red-500 text-sm text-center">Неверный пароль</p>
+            )}
+            <button
+              type="submit"
+              className="w-full py-2.5 rounded-lg bg-[#7A7FEE] text-white font-medium hover:bg-[#6a6fde] transition-colors"
+            >
+              Войти
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#111111] p-6">
@@ -61,6 +113,13 @@ export default function Admin() {
             >
               <Icon name="RefreshCw" size={16} />
               Обновить
+            </button>
+            <button
+              onClick={() => { sessionStorage.removeItem("admin_auth"); setAuthed(false) }}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <Icon name="LogOut" size={16} />
+              Выйти
             </button>
             <a href="/" className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               <Icon name="ArrowLeft" size={16} />
