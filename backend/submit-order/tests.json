@@ -1,0 +1,27 @@
+{
+  "tests": [
+    {
+      "name": "Успешная отправка заявки",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Иванов",
+        "phone": "+79001234567",
+        "email": "test@example.com",
+        "description": "Нужно напечатать деталь"
+      },
+      "expectedStatus": 200,
+      "expectedBody": { "success": true },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Ошибка при пустых полях",
+      "method": "POST",
+      "path": "/",
+      "body": { "name": "" },
+      "expectedStatus": 400,
+      "expectedBody": {},
+      "bodyMatcher": "partial"
+    }
+  ]
+}
